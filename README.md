@@ -1,2 +1,4 @@
 # paper-docker
-Docker image for PaperMC
+
+This is a docker image for [PaperMC](https://papermc.io).
+
