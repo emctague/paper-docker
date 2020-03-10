@@ -9,8 +9,7 @@ WORKDIR /server
 ADD https://papermc.io/api/v1/paper/${mc_version}/${paper_build} /server/paper-info.json
 
 RUN curl -o /server/paper.jar https://papermc.io/api/v1/paper/${mc_version}/${paper_build}/download
-RUN mkdir -p /server/data/{worlds,logs}
-RUN ln -s /server/data/logs /server/logs
+RUN mkdir -p /server/data/{worlds}
 
 # RUN echo "eula=true" > /server/eula.txt
 CMD ["java", "-server", "-XX:ParallelGCThreads=15", "-Xms1G", "-Xmx8G", "-jar", "paper.jar", "--nogui", "--noconsole", "--world-dir", "/server/data/worlds/"]

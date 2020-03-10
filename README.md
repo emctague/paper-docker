@@ -18,9 +18,10 @@ RUN echo "eula=true" > /server/eula.txt
 ```
 
 When you run the image, you will need to specify a volume mounted to `/server/data`. This volume will contain server
-state (logs, worlds), but *not* any configuration - it is up to you to create configuration files to be
+state (worlds, hopefully more if Spigot decides to separate configuration from state.), but *not* any configuration - it is up to you to create configuration files to be
 copied by your custom image, mount them to volumes, or let them be generated every time by Paper.
 
 Mounting a volume to `/server/cache` will also help reduce startup times.
+Mounting to `/server/logs` will store server logs.
 
 You must expose port `25565` from the container.
