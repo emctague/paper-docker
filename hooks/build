@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Retrieve an array of all available Paper/minecraft versions.
+mc_versions=`curl https://papermc.io/api/v1/paper/ | perl -ne '/"versions":\["(.+)"\]/ && print join(" ", split(/","/, $1))'`
+mc_version_array=(${mc_versions})
+
+is_first=true
+
+# Iterate all available versions.
+for version in "${mc_version_array[@]}"
+do
+    # Produce a build for this version of minecraft.
+    docker build --build-arg mc_version=${version} -f $DOCKERFILE_PATH -t $IMAGE_NAME:${version}
+
+    # If this is the first item in the array, it's the latest, so we want to tag it :latest too.
+    if [[ ${is_first} = true ]]; then
+        docker tag $IMAGE_NAME:${version} $IMAGE_NAME:latest
+    fi
+
+    is_first=false
+done
